@@ -1,0 +1,4 @@
+<li>
+	<p>"<%= comment.body %>"</p>
+	<h6>Posted by <%= link_to "#{commentuser(comment.user_id).username}", user_path(commentuser(comment.user_id)) %> on <%= comment.created_at.strftime("%B %d, %Y") %></h4>
+</li>

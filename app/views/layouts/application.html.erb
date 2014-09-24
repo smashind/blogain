@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">Smashblog</a>
+		</div>
+
+
+		<div class="collapse navbar-collapse">
+			<div class="nav navbar-nav navbar-right">
+				<% if user_signed_in? %>
+				<p class="navbar-text">Logged in as <strong><%= current_user.name %></strong></p>
+				  <%= link_to 'Write a New Post', new_post_path, class: "btn btn-info navbar-btn pull-left" %>
+				  <p class="navbar-text"><%= link_to 'Drafts', drafts_path, :class => 'navbar-link' %></p>
+				  <p class="navbar-text"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></p>
+				  <p class="navbar-text navbar-right"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></p>
+				  
+				<% else %>
+				  <%= link_to "Login", new_user_session_path, :class => 'btn btn-success navbar-btn'  %>
+				  <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-default navbar-btn'  %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<% if notice %>
+	  <p class="alert alert-success"><%= notice %></p>
+	<% end %>
+	<% if alert %>
+	  <p class="alert alert-danger"><%= alert %></p>
+	<% end %>
+
+	<%= yield %>
+
+</div>
+
+</body>
+</html>
