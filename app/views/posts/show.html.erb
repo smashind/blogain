@@ -8,6 +8,10 @@
 	<% end %>
 <% end %></p>
 <p>
+	<% @post.tags.each do |tag| %>
+		<%= link_to tag.name, tag_path(tag) %>
+	<% end %>
+<p>
   <%= @post.body %>
 </p>
 
@@ -19,6 +23,10 @@
 <% end %>
 
 <h3>Comments</h3>
+<% if @post.comments.any? %>
 <ol>
 	<%= render partial: 'posts/comments', collection: @post.comments, as: :comment %>
 </ol>
+<% else %>
+<p>No comments yet.</p>
+<% end %>

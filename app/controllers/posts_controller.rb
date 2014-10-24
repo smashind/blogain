@@ -4,11 +4,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.paginate(:page => params[:page], :per_page => 4).order('id DESC').where(:published => true)
+    @posts = Post.paginate(:page => params[:page], :per_page => 4).order('id DESC').published
   end
 
   def drafts
-    @posts = Post.paginate(:page => params[:page], :per_page => 4).where(:published => false)
+    @posts = Post.paginate(:page => params[:page], :per_page => 4).draft.where(user_id: current_user.id)
   end
 
   # GET /posts/1
@@ -75,6 +75,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body, :published, :user_id)
+      params.require(:post).permit(:title, :tag_list, :body, :published, :user_id)
     end
 end

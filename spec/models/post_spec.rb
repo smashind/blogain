@@ -3,11 +3,12 @@ require 'rails_helper'
 describe 'Post' do 
 
 	let(:user) { User.new(name: "Gary", username: "gtester", email: "validemail@msn.gov", password: "foobaarr", password_confirmation: "foobaarr", id: 1 ) }
-	before { @post = user.posts.build(title: "This is the title", body: "This is the body of the blog post", id: 1) }
+	before { @post = user.posts.build(title: "This is the title", tag_list: "tag1, tag 2, tag 2, tag 3, tag 4 ", body: "This is the body of the blog post", id: 1) }
 
 	subject { @post }
 
 	it { should respond_to(:title) }
+	it { should respond_to(:tag_list)}
 	it { should respond_to(:body) }
 
 	it { should be_valid }
@@ -25,6 +26,11 @@ describe 'Post' do
 	describe "when body is not present" do 
 		before { @post.body = nil }
 		it { should_not be_valid }
+	end
+
+	describe "when tag list is not present" do 
+		before { @post.tag_list = "" }
+		it { should be_valid }
 	end
 
 	describe "comment associations" do 
