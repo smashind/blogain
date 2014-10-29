@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
 	validates :body, presence: true
 	has_many :taggings
 	has_many :tags, through: :taggings
-	scope :published, -> { where(published: true) }
+	scope :published, -> { order('id DESC').where(published: true) }
   	scope :draft, -> { where(published: false) }
 
 
