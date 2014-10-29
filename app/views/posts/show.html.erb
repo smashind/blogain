@@ -15,6 +15,12 @@
   <%= @post.body %>
 </p>
 
+<p>
+  <% @pictures.each do |p| %>
+    <%= image_tag p.imagename_url(:thumb) %>
+  <% end %>
+</p>
+
 <h3>Add a Comment</h3>
 <% if user_signed_in? %>
 	<%= render partial: 'comments/form' %>

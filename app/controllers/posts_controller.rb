@@ -16,11 +16,13 @@ class PostsController < ApplicationController
   def show
     @comment = Comment.new
     @comment.post_id = @post.id
+    @pictures = @post.pictures.all
   end
 
   # GET /posts/new
   def new
     @post = Post.new
+    @picture = @post.pictures.build
   end
 
   # GET /posts/1/edit
@@ -34,6 +36,11 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        if params[:pictures]
+          params[:pictures]['imagename'].each do |a|
+            @picture = @post.pictures.create!(:imagename => a, :image_id => @post.id)
+          end
+        end
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @post }
       else
@@ -48,6 +55,11 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        if params[:pictures]
+          params[:pictures]['imagename'].each do |a|
+            @picture = @post.pictures.create!(:imagename => a, :image_id => @post.id)
+          end
+        end
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else
@@ -75,6 +87,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :tag_list, :body, :published, :user_id)
+      params.require(:post).permit(:title, :tag_list, :body, :published, :user_id, pictures_attributes: [:id, :post_id, :imagename])
     end
 end

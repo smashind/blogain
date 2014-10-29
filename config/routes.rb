@@ -4,6 +4,7 @@ Blog::Application.routes.draw do
   resources :posts do 
     resources :comments
   end
+  resources :pictures
   resources :tags
   root :to => "posts#index"
   get 'drafts', to: "posts#drafts"

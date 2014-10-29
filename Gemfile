@@ -6,6 +6,8 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'devise'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

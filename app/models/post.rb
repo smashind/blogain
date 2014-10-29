@@ -8,6 +8,8 @@ class Post < ActiveRecord::Base
 	has_many :tags, through: :taggings
 	scope :published, -> { where(published: true) }
   	scope :draft, -> { where(published: false) }
+  	has_many :pictures, as: :image
+  	accepts_nested_attributes_for :pictures
 
 
 	def tag_list

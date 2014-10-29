@@ -15,18 +15,26 @@
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
+
   <div class="field">
     <%= f.label :body %><br>
     <%= f.text_area :body %>
   </div>
+
+  <% if @post.pictures.any? %>
+  Current images:<br>
+    <% @post.pictures.each do |p| %>
+      <%= image_tag p.imagename_url(:thumb) %> <%= link_to "Delete", p, method: :delete, data: { confirm: 'You sure?' } %><br>
+    <% end %>
+  <% else %>
+    No post attachments yet.
+  <% end %>
+
   <div class="field">
-    <%= f.label :imagename, "Images" %>
+    <%= f.label :imagename, "Add Images" %><br>
     <%= f.file_field :imagename, :multiple => true, name: "pictures[imagename][]" %>
   </div>
-  <div class="field">
-    <%= f.label :tag_list %><br>
-    <%= f.text_field :tag_list %>
-  </div>
+
   <div class="field">
     <%= f.label :published %><br>
     <%= f.check_box :published %>
@@ -35,6 +43,6 @@
     <%= f.hidden_field :user_id, :value => current_user.id %>
 
   <div class="actions">
-    <%= f.submit 'Create Post', :class => "btn btn-info" %>
+    <%= f.submit %>
   </div>
 <% end %>
