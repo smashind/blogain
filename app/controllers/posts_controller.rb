@@ -4,11 +4,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.paginate(:page => params[:page], :per_page => 4).order('id DESC').published
+    @posts = Post.paginate(:page => params[:page], :per_page => 3).published
   end
 
   def drafts
-    @posts = Post.paginate(:page => params[:page], :per_page => 4).draft.where(user_id: current_user.id)
+    @posts = Post.paginate(:page => params[:page], :per_page => 3).draft.where(user_id: current_user.id)
   end
 
   # GET /posts/1
