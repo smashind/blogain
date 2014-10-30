@@ -11,15 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029111028) do
-
-  create_table "attachments", force: true do |t|
-    t.string   "imagename"
-    t.integer  "image_id"
-    t.string   "image_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20141030223456) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -31,16 +23,6 @@ ActiveRecord::Schema.define(version: 20141029111028) do
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
-
-  create_table "images", force: true do |t|
-    t.string   "filename"
-    t.integer  "picture_id"
-    t.string   "picture_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "images", ["picture_id", "picture_type"], name: "index_images_on_picture_id_and_picture_type"
 
   create_table "pictures", force: true do |t|
     t.string   "imagename"
@@ -57,6 +39,7 @@ ActiveRecord::Schema.define(version: 20141029111028) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "comments_count", default: 0, null: false
   end
 
   create_table "taggings", force: true do |t|
