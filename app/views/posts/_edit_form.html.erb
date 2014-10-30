@@ -17,14 +17,19 @@
   </div>
 
   <div class="field">
+    <%= f.label :tag_list, "Edit Tags" %><br>
+    <%= f.text_field :tag_list, :value => edit_tags(@post.tags) %>
+  </div>
+
+  <div class="field">
     <%= f.label :body %><br>
     <%= f.text_area :body %>
   </div>
 
   <% if @post.pictures.any? %>
-  Current images:<br>
+  <p><strong>Current images (click an image to delete it)</strong></p>
     <% @post.pictures.each do |p| %>
-      <%= image_tag p.imagename_url(:thumb) %> <%= link_to "Delete", p, method: :delete, data: { confirm: 'You sure?' } %><br>
+      <%= link_to image_tag(p.imagename_url(:thumb)), p, method: :delete, data: { confirm: 'Are you sure you want to delete this image?' } %>  
     <% end %>
   <% else %>
     No post attachments yet.
